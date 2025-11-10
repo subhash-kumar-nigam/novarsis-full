@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCareer, removeCareer, updateCareer } from '../../slice/careerSlice';
 import AdminTable from '../../common/AdminTable';
@@ -6,7 +7,6 @@ import { toast } from 'react-toastify';
 
 const ListCareer = () => {
   const dispatch = useDispatch();
-
   const careerState = useSelector((state) => state.career);
   const { data = [], loading, error } = careerState;
 
@@ -20,12 +20,10 @@ const ListCareer = () => {
     description: ''
   });
 
-  // ✅ Fetch all careers
   useEffect(() => {
     dispatch(getCareer());
   }, [dispatch]);
 
-  // ✅ Handle edit
   const handleEditClick = (career) => {
     setSelectedCareer(career);
     setFormData({
@@ -38,24 +36,21 @@ const ListCareer = () => {
     setShowModal(true);
   };
 
-  // ✅ Handle delete
   const handleRemove = async (id) => {
     try {
       await dispatch(removeCareer(id));
       toast.success('Career removed successfully!');
       dispatch(getCareer());
-    } catch (err) {
+    } catch {
       toast.error('Failed to remove career');
     }
   };
 
-  // ✅ Handle input changes
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Save changes
   const handleSaveChanges = async () => {
     try {
       await dispatch(updateCareer({ id: selectedCareer.id, data: formData }));
@@ -67,7 +62,6 @@ const ListCareer = () => {
     }
   };
 
-  // ✅ Close modal
   const closeModal = () => {
     setShowModal(false);
     setSelectedCareer(null);
@@ -118,7 +112,6 @@ const ListCareer = () => {
         !loading && <p className="text-gray-400 mx-4">No careers available.</p>
       )}
 
-      {/* ✅ Edit Modal */}
       {showModal && (
         <div className="modal fade show d-block" tabIndex="-1" role="dialog">
           <div className="modal-dialog modal-dialog-centered" role="document">
@@ -185,6 +178,20 @@ const ListCareer = () => {
       )}
     </div>
   );
+};
+
+// ✅ PropTypes for AdminTable row cells
+ListCareer.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      title: PropTypes.string,
+      location: PropTypes.string,
+      type: PropTypes.string,
+      experience: PropTypes.string,
+      description: PropTypes.string
+    }).isRequired
+  })
 };
 
 export default ListCareer;

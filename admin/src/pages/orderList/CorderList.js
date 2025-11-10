@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import AdminTable from 'common/AdminTable';
 import TruncatedMessage from 'common/TruncatedMessage';
@@ -11,56 +12,32 @@ const CorderList = () => {
   const cartData = useSelector((state) => state.orderDB);
   const [showModal, setShowModal] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
-  // const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     dispatch(getOrderListDB());
   }, [dispatch]);
 
-  // When Edit button is clicked, open the modal with current product details
   const handleEditClick = (product) => {
     setCurrentProduct(product);
     setShowModal(true);
   };
 
-  // Close the modal and reset state
   const handleCloseModal = () => {
     setShowModal(false);
     setCurrentProduct(null);
   };
 
-  // Handle saving the edited product
   const handleSave = () => {
-    const formData = new FormData();
-    formData.append('id', currentProduct.id);
-    formData.append('status', currentProduct.status);
-    // Dispatch updateProduct with the formData
     dispatch(updateOrderListDB({ id: currentProduct.id, data: currentProduct }));
-    handleCloseModal(); // Close modal after saving
+    handleCloseModal();
   };
 
-  // Table Headers
   const tableHeaders = [
-    {
-      Header: 'ID',
-      accessor: 'id'
-    },
-    {
-      Header: 'Name',
-      accessor: 'customer.name'
-    },
-    {
-      Header: 'Price',
-      accessor: 'total_amount'
-    },
-    {
-      Header: 'Payment',
-      accessor: 'payment_method'
-    },
-    {
-      Header: 'Date',
-      accessor: 'createdAt'
-    },
+    { Header: 'ID', accessor: 'id' },
+    { Header: 'Name', accessor: 'customer.name' },
+    { Header: 'Price', accessor: 'total_amount' },
+    { Header: 'Payment', accessor: 'payment_method' },
+    { Header: 'Date', accessor: 'createdAt' },
     {
       Header: 'Address',
       accessor: 'shipping_address',
@@ -70,18 +47,18 @@ const CorderList = () => {
       Header: 'Status',
       accessor: 'status',
       Cell: ({ row }) => {
-        const status = row.original.status || ''; // Add a fallback to an empty string
+        const status = row.original.status || '';
         let bgColor;
 
         switch (status) {
           case 'pending':
-            bgColor = 'bg-warning'; // Yellow
+            bgColor = 'bg-warning';
             break;
           case 'complete':
-            bgColor = 'bg-success'; // Green
+            bgColor = 'bg-success';
             break;
           case 'reject':
-            bgColor = 'bg-danger'; // Red
+            bgColor = 'bg-danger';
             break;
           default:
             bgColor = '';
@@ -97,16 +74,10 @@ const CorderList = () => {
       accessor: 'actions',
       Cell: ({ row }) => (
         <>
-          <button
-            className="btn editbtn mx-1"
-            onClick={() => handleEditClick(row.original)} // Correct function
-          >
+          <button className="btn editbtn mx-1" onClick={() => handleEditClick(row.original)}>
             Confirm
           </button>
-          <button
-            className="btn editbtn mx-1"
-            onClick={() => navigate(`/billing/details/${row.original.id}`)} // Correct function
-          >
+          <button className="btn editbtn mx-1" onClick={() => navigate(`/billing/details/${row.original.id}`)}>
             See
           </button>
         </>
@@ -124,7 +95,6 @@ const CorderList = () => {
         {cartData?.data?.length > 0 && <AdminTable tableHeaders={tableHeaders} tableData={cartData.data} />}
       </div>
 
-      {/* Edit Modal */}
       {showModal && currentProduct && (
         <div
           className="modal fade show"
@@ -209,6 +179,21 @@ const CorderList = () => {
       )}
     </>
   );
+};
+
+// PropTypes to remove warnings
+CorderList.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      shipping_address: PropTypes.string,
+      status: PropTypes.string,
+      customer: PropTypes.shape({
+        name: PropTypes.string,
+        mobile: PropTypes.string
+      })
+    }).isRequired
+  })
 };
 
 export default CorderList;

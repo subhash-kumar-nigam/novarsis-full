@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMedia, removeMedia } from 'slice/mediaSlice';
 import AdminTable from 'common/AdminTable';
@@ -37,19 +38,28 @@ const List = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <div className="container-fluid mt-5">
-        <div className="mainheadig mx-4">
-          <h4 className="text-white font-weight-bold">Media List</h4>
-        </div>
-        {cartData?.data?.length > 0 ? ( // Changed mediaData to cartData
-          <AdminTable tableHeaders={tableHeaders} tableData={cartData.data} />
-        ) : (
-          <p>No media data available</p>
-        )}
+    <div className="container-fluid mt-5">
+      <div className="mainheadig mx-4">
+        <h4 className="text-white font-weight-bold">Media List</h4>
       </div>
-    </>
+      {cartData?.data?.length > 0 ? (
+        <AdminTable tableHeaders={tableHeaders} tableData={cartData.data} />
+      ) : (
+        <p className="text-gray-400 mx-4">No media data available</p>
+      )}
+    </div>
   );
+};
+
+// PropTypes to remove react/prop-types warnings
+List.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      name: PropTypes.string,
+      image: PropTypes.string
+    }).isRequired
+  })
 };
 
 export default List;

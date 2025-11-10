@@ -1,8 +1,27 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getResume, removeResume } from 'slice/internshipSlice';
 import AdminTable from 'common/AdminTable';
 // import { IoIosEye } from "react-icons/io";
+
+const RemoveButton = ({ row }) => {
+  const dispatch = useDispatch();
+  return (
+    <button className="btn removebtn" onClick={() => dispatch(removeResume(row.original.id))}>
+      Remove
+    </button>
+  );
+};
+
+// PropTypes for RemoveButton
+RemoveButton.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+    }).isRequired
+  }).isRequired
+};
 
 const Internship = () => {
   // const [viewData, setViewData] = useState(null);
@@ -11,38 +30,16 @@ const Internship = () => {
   const cartData = useSelector((state) => state.internship);
 
   const tableHeaders = [
-    {
-      Header: 'ID',
-      accessor: 'id'
-    },
-    {
-      Header: 'Student Name',
-      accessor: 'name'
-    },
-    {
-      Header: 'Student Email',
-      accessor: 'email'
-    },
-    {
-      Header: 'standard',
-      accessor: 'standard'
-    },
-    {
-      Header: 'mobile',
-      accessor: 'mobile'
-    },
-    {
-      Header: 'board',
-      accessor: 'board'
-    },
+    { Header: 'ID', accessor: 'id' },
+    { Header: 'Student Name', accessor: 'name' },
+    { Header: 'Student Email', accessor: 'email' },
+    { Header: 'Standard', accessor: 'standard' },
+    { Header: 'Mobile', accessor: 'mobile' },
+    { Header: 'Board', accessor: 'board' },
     {
       Header: 'Actions',
       accessor: 'actions',
-      Cell: ({ row }) => (
-        <button className="btn removebtn" onClick={() => dispatch(removeResume(row.original.id))}>
-          Remove
-        </button>
-      )
+      Cell: (props) => <RemoveButton {...props} />
     }
     // {
     //     Header: 'View',
@@ -66,20 +63,18 @@ const Internship = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <div className="container-fluid mt-5 pb-5">
-        <div className="mainheadig mx-3">
-          <h4 className="text-white font-weight-bold">Admission List</h4>
-        </div>
-
-        {cartData?.loading ? (
-          <p className="text-white mx-3">Loading...</p>
-        ) : cartData?.data?.length > 0 ? (
-          <AdminTable tableHeaders={tableHeaders} tableData={cartData.data} />
-        ) : (
-          <p className="text-white mx-3">No Admission found.</p>
-        )}
+    <div className="container-fluid mt-5 pb-5">
+      <div className="mainheadig mx-3">
+        <h4 className="text-white font-weight-bold">Admission List</h4>
       </div>
+
+      {cartData?.loading ? (
+        <p className="text-white mx-3">Loading...</p>
+      ) : cartData?.data?.length > 0 ? (
+        <AdminTable tableHeaders={tableHeaders} tableData={cartData.data} />
+      ) : (
+        <p className="text-white mx-3">No Admission found.</p>
+      )}
 
       {/* Modal - View Resume 
             {modalOpen && (
@@ -109,7 +104,7 @@ const Internship = () => {
                     </div>
                 </div>
             )}*/}
-    </>
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getService, removeService, updateService } from 'slice/serviceSlice';
 import AdminTable from 'common/AdminTable';
@@ -172,6 +173,18 @@ const ListService = () => {
       )}
     </div>
   );
+};
+
+// Add PropTypes to fix CI build warnings
+ListService.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      title: PropTypes.string,
+      description: PropTypes.string,
+      image: PropTypes.string
+    })
+  })
 };
 
 export default ListService;

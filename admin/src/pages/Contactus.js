@@ -1,8 +1,38 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContactUs, removeContactUs } from '../slice/contactUsSlice';
 import AdminTable from 'common/AdminTable';
 import TruncatedMessage from 'common/TruncatedMessage';
+
+// Component for rendering message cell
+const MessageCell = ({ row }) => <TruncatedMessage text={row.original.message} maxLength={10} />;
+
+MessageCell.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      message: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired
+};
+
+// Component for rendering remove button
+const RemoveButton = ({ row }) => {
+  const dispatch = useDispatch();
+  return (
+    <button className="btn removebtn" onClick={() => dispatch(removeContactUs(row.original.id))}>
+      Remove
+    </button>
+  );
+};
+
+RemoveButton.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+    }).isRequired
+  }).isRequired
+};
 
 const Contactus = () => {
   const dispatch = useDispatch();
@@ -16,16 +46,12 @@ const Contactus = () => {
     {
       Header: 'Message',
       accessor: 'message',
-      Cell: ({ row }) => <TruncatedMessage text={row.original.message} maxLength={10} />
+      Cell: (props) => <MessageCell {...props} />
     },
     {
       Header: 'Actions',
       accessor: 'actions',
-      Cell: ({ row }) => (
-        <button className="btn removebtn" onClick={() => dispatch(removeContactUs(row.original.id))}>
-          Remove
-        </button>
-      )
+      Cell: (props) => <RemoveButton {...props} />
     }
   ];
 

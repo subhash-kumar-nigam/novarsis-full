@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFaqs, removeFaq, updateFaq } from 'slice/faqSlice';
 import AdminTable from 'common/AdminTable';
@@ -15,12 +16,10 @@ const ListFAQs = () => {
     answer: ''
   });
 
-  // Fetch FAQs list
   useEffect(() => {
     dispatch(getFaqs());
   }, [dispatch]);
 
-  // When edit button is clicked
   const handleEditClick = (faq) => {
     setSelectedFaq(faq);
     setFormData({
@@ -44,12 +43,11 @@ const ListFAQs = () => {
     }));
   };
 
-  // Save updated FAQ
   const handleSaveChanges = async () => {
     try {
       await dispatch(updateFaq({ id: selectedFaq.id, data: formData }));
       toast.success('FAQ updated successfully!');
-      dispatch(getFaqs()); // Refresh list
+      dispatch(getFaqs());
     } catch (error) {
       console.error('Error updating FAQ:', error);
       toast.error('Failed to update FAQ!');
@@ -58,7 +56,6 @@ const ListFAQs = () => {
     closeModal();
   };
 
-  // Table columns
   const tableHeaders = [
     {
       Header: 'ID',
@@ -89,16 +86,17 @@ const ListFAQs = () => {
   ];
 
   return (
-    <>
-      <div className="container-fluid mt-5">
-        <div className="mainheadig mx-4">
-          <h4 className="text-white font-weight-bold">FAQs List</h4>
-        </div>
-
-        {faqData?.data?.length > 0 && <AdminTable tableHeaders={tableHeaders} tableData={faqData.data} />}
+    <div className="container-fluid mt-5">
+      <div className="mainheadig mx-4">
+        <h4 className="text-white font-weight-bold">FAQs List</h4>
       </div>
 
-      {/* Edit Modal */}
+      {faqData?.data?.length > 0 ? (
+        <AdminTable tableHeaders={tableHeaders} tableData={faqData.data} />
+      ) : (
+        <p className="text-gray-400 mx-4">No FAQs available</p>
+      )}
+
       {showModal && selectedFaq && (
         <div className="modal fade show d-block" tabIndex="-1" role="dialog" aria-labelledby="editFaqModal" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">
@@ -111,13 +109,11 @@ const ListFAQs = () => {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-
               <div className="modal-body">
                 <p>
                   Editing FAQ: <strong>{selectedFaq.question}</strong>
                 </p>
 
-                {/* Question */}
                 <input
                   type="text"
                   name="question"
@@ -127,7 +123,6 @@ const ListFAQs = () => {
                   placeholder="Question"
                 />
 
-                {/* Answer */}
                 <textarea
                   name="answer"
                   value={formData.answer}
@@ -150,8 +145,19 @@ const ListFAQs = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
+};
+
+// PropTypes for AdminTable row cells
+ListFAQs.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      question: PropTypes.string,
+      answer: PropTypes.string
+    }).isRequired
+  })
 };
 
 export default ListFAQs;

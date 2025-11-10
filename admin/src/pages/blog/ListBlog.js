@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlog, removeBlog, updateBlog } from 'slice/blogSlice';
 import AdminTable from 'common/AdminTable';
@@ -7,12 +8,7 @@ import { toast } from 'react-toastify';
 const ListBlog = () => {
   const dispatch = useDispatch();
 
-  // ✅ Redux state selector (ensure store name is correct)
-  const blogState = useSelector((state) => state.blog) || {
-    data: [],
-    loading: false,
-    error: null
-  };
+  const blogState = useSelector((state) => state.blog) || { data: [], loading: false, error: null };
   const { data = [], loading, error } = blogState;
 
   const [selectedBlog, setSelectedBlog] = useState(null);
@@ -23,12 +19,10 @@ const ListBlog = () => {
     date: ''
   });
 
-  // ✅ Fetch Blogs on mount
   useEffect(() => {
     dispatch(getBlog());
   }, [dispatch]);
 
-  // ✅ Edit modal open
   const handleEditClick = (blog) => {
     setSelectedBlog(blog);
     setFormData({
@@ -39,29 +33,23 @@ const ListBlog = () => {
     setShowModal(true);
   };
 
-  // ✅ Close modal
   const closeModal = () => {
     setShowModal(false);
     setSelectedBlog(null);
     setFormData({ title: '', description: '', date: '' });
   };
 
-  // ✅ Form change
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Save changes
   const handleSaveChanges = async () => {
     if (!selectedBlog) return;
     try {
       await dispatch(updateBlog({ id: selectedBlog.id, data: formData }));
       toast.success('Blog updated successfully!');
-      dispatch(getBlog()); // refresh list
+      dispatch(getBlog());
     } catch (err) {
       console.error('Error updating blog:', err);
       toast.error('Failed to update blog');
@@ -69,7 +57,6 @@ const ListBlog = () => {
     closeModal();
   };
 
-  // ✅ Remove blog
   const handleRemove = async (id) => {
     try {
       await dispatch(removeBlog(id));
@@ -81,7 +68,6 @@ const ListBlog = () => {
     }
   };
 
-  // ✅ Table columns
   const tableHeaders = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'Title', accessor: 'title' },
@@ -120,7 +106,6 @@ const ListBlog = () => {
         )}
       </div>
 
-      {/* ✅ Edit Modal */}
       {showModal && selectedBlog && (
         <div className="modal fade show d-block" tabIndex="-1" role="dialog">
           <div className="modal-dialog modal-dialog-centered" role="document">
@@ -166,6 +151,18 @@ const ListBlog = () => {
       )}
     </>
   );
+};
+
+// ✅ PropTypes for AdminTable row cells
+ListBlog.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      date: PropTypes.string
+    }).isRequired
+  })
 };
 
 export default ListBlog;

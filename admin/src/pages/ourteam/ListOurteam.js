@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOurteam, removeOurteam, updateOurteam } from 'slice/ourteamSlice';
 import AdminTable from 'common/AdminTable';
@@ -17,12 +18,10 @@ const ListOurteam = () => {
     existingImage: ''
   });
 
-  // Fetch team list
   useEffect(() => {
     dispatch(getOurteam());
   }, [dispatch]);
 
-  // When edit button is clicked
   const handleEditClick = (teamMember) => {
     setSelectedTeamMember(teamMember);
     setFormData({
@@ -55,7 +54,6 @@ const ListOurteam = () => {
     }));
   };
 
-  // Save updated member
   const handleSaveChanges = async () => {
     const updatedData = new FormData();
     updatedData.append('name', formData.name);
@@ -67,7 +65,7 @@ const ListOurteam = () => {
     try {
       await dispatch(updateOurteam({ id: selectedTeamMember.id, data: updatedData }));
       toast.success('Team member updated successfully!');
-      dispatch(getOurteam()); // Refresh list
+      dispatch(getOurteam());
     } catch (error) {
       console.error('Error updating team member:', error);
       toast.error('Failed to update team member!');
@@ -76,12 +74,8 @@ const ListOurteam = () => {
     closeModal();
   };
 
-  // Table columns
   const tableHeaders = [
-    {
-      Header: 'ID',
-      accessor: 'id'
-    },
+    { Header: 'ID', accessor: 'id' },
     {
       Header: 'Image',
       accessor: 'image',
@@ -95,14 +89,8 @@ const ListOurteam = () => {
         />
       )
     },
-    {
-      Header: 'Name',
-      accessor: 'name'
-    },
-    {
-      Header: 'Title',
-      accessor: 'title'
-    },
+    { Header: 'Name', accessor: 'name' },
+    { Header: 'Title', accessor: 'title' },
     {
       Header: 'Actions',
       accessor: 'actions',
@@ -129,7 +117,6 @@ const ListOurteam = () => {
         {teamData?.data?.length > 0 && <AdminTable tableHeaders={tableHeaders} tableData={teamData.data} />}
       </div>
 
-      {/* Edit Modal */}
       {showModal && selectedTeamMember && (
         <div className="modal fade show d-block" tabIndex="-1" role="dialog" aria-labelledby="editTeamMemberModal" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">
@@ -148,7 +135,6 @@ const ListOurteam = () => {
                   Edit details for: <strong>{selectedTeamMember.name}</strong>
                 </p>
 
-                {/* Name */}
                 <input
                   type="text"
                   name="name"
@@ -157,8 +143,6 @@ const ListOurteam = () => {
                   className="form-control mb-2"
                   placeholder="Name"
                 />
-
-                {/* Title */}
                 <input
                   type="text"
                   name="title"
@@ -167,11 +151,7 @@ const ListOurteam = () => {
                   className="form-control mb-2"
                   placeholder="Title"
                 />
-
-                {/* Image */}
                 <input type="file" name="image" onChange={handleImageChange} className="form-control mb-2" accept="image/*" />
-
-                {/* Preview */}
                 {formData.image ? (
                   <img src={URL.createObjectURL(formData.image)} alt="Preview" width={100} className="mt-2" />
                 ) : (
@@ -193,6 +173,18 @@ const ListOurteam = () => {
       )}
     </>
   );
+};
+
+// PropTypes to remove warnings
+ListOurteam.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      name: PropTypes.string,
+      title: PropTypes.string,
+      image: PropTypes.string
+    }).isRequired
+  })
 };
 
 export default ListOurteam;

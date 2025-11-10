@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProduct, removeProduct, updateProduct } from 'slice/productSlice';
 import AdminTable from 'common/AdminTable';
@@ -21,14 +22,12 @@ const ProductList = () => {
     setShowModal(true);
   };
 
-  // Close the modal and reset state
   const handleCloseModal = () => {
     setShowModal(false);
     setCurrentProduct(null);
     setImageFile(null);
   };
 
-  // Handle saving the edited product
   const handleSave = () => {
     const formData = new FormData();
     formData.append('id', currentProduct.id);
@@ -37,44 +36,28 @@ const ProductList = () => {
     formData.append('quantity', currentProduct.quantity);
     formData.append('long_description', currentProduct.long_description);
 
-    // If a new image is uploaded, append it to the formData
     if (imageFile) {
       formData.append('image', imageFile);
     }
 
-    // Dispatch updateProduct with the formData
     dispatch(updateProduct({ id: currentProduct.id, data: formData }));
-    handleCloseModal(); // Close modal after saving
+    handleCloseModal();
   };
 
-  // Handle image file selection
   const handleImageChange = (event) => {
     setImageFile(event.target.files[0]);
   };
 
-  // Table Headers
   const tableHeaders = [
-    {
-      Header: 'ID',
-      accessor: 'id'
-    },
+    { Header: 'ID', accessor: 'id' },
     {
       Header: 'Image',
       accessor: 'image',
       Cell: ({ row }) => <img src={`${process.env.REACT_APP_BACKEND}uploads/${row.original.image}`} alt={row.original.name} width={50} />
     },
-    {
-      Header: 'Name',
-      accessor: 'name'
-    },
-    {
-      Header: 'Price',
-      accessor: 'sprice'
-    },
-    {
-      Header: 'Quantity',
-      accessor: 'quantity'
-    },
+    { Header: 'Name', accessor: 'name' },
+    { Header: 'Price', accessor: 'sprice' },
+    { Header: 'Quantity', accessor: 'quantity' },
     {
       Header: 'Description',
       accessor: 'long_description',
@@ -106,22 +89,12 @@ const ProductList = () => {
         {cartData?.data?.length > 0 && <AdminTable tableHeaders={tableHeaders} tableData={cartData.data} />}
       </div>
 
-      {/* Edit Modal */}
       {showModal && currentProduct && (
-        <div
-          className="modal fade show"
-          style={{ display: 'block' }}
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="editModalLabel"
-          aria-hidden="true"
-        >
+        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" role="dialog">
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="editModalLabel">
-                  Edit Product
-                </h5>
+                <h5 className="modal-title">Edit Product</h5>
                 <button type="button" className="close" onClick={handleCloseModal} aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -195,6 +168,20 @@ const ProductList = () => {
       )}
     </>
   );
+};
+
+// Add PropTypes to fix warnings
+ProductList.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      name: PropTypes.string,
+      sprice: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      quantity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      long_description: PropTypes.string,
+      image: PropTypes.string
+    }).isRequired
+  })
 };
 
 export default ProductList;
