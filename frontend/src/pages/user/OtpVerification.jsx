@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { otpverification } from '../../slice/userSlice';
 import Swal from 'sweetalert2';
@@ -15,8 +15,10 @@ const OtpVerification = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userdata = useSelector(store => store.user);
-  const MySwal = withReactContent(Swal);
+  const userdata = useSelector((store) => store.user);
+
+  // ✅ Memoize MySwal to prevent re-creation on every render
+  const MySwal = useMemo(() => withReactContent(Swal), []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,8 +57,7 @@ const OtpVerification = () => {
         confirmButtonText: 'OK',
       });
     }
-
-  }, [userdata]);
+  }, [userdata, MySwal, navigate]); // ✅ dependencies fixed
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,14 +101,12 @@ const OtpVerification = () => {
           <div className="mt-6">
             <button
               type="submit"
-             className="w-full py-3 mt-4 bg-[#345bf3] hover:bg-black hover:text-white text-white font-semibold rounded-lg transition duration-200"
-
+              className="w-full py-3 mt-4 bg-[#345bf3] hover:bg-black hover:text-white text-white font-semibold rounded-lg transition duration-200"
               disabled={loading}
             >
               {loading ? "Loading..." : "Verify OTP"}
             </button>
           </div>
-    
         </form>
       </div>
     </div>

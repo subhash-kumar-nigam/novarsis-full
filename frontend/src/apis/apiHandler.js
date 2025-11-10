@@ -1,5 +1,5 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { put, take, takeLatest } from "redux-saga/effects";
+
+import { put,  takeLatest } from "redux-saga/effects";
 import { signup, signin, success, failed, otpverification, successLogin, getoneuser } from '../slice/userSlice';
 import { getRequest, postRequest } from "./ApiInstence";
 import { toast } from "react-toastify";

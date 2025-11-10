@@ -1,8 +1,7 @@
 import React from "react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import {
-  
-  FaGooglePlusG,
+
   FaPhoneAlt,
   FaPaperPlane,
   FaBriefcase,

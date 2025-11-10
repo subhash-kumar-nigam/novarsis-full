@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -35,27 +35,33 @@ const HomeSection = () => {
   const [hovered, setHovered] = useState(false);
   const slideInterval = useRef(null);
 
-  const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
-  const prevSlide = () =>
-    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+  const nextSlide = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % slides.length);
+  }, []);
 
-  const startAutoSlide = () => {
+  const prevSlide = useCallback(() => {
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+  }, []);
+
+  const startAutoSlide = useCallback(() => {
     slideInterval.current = setInterval(nextSlide, 5000);
-  };
-  const stopAutoSlide = () => {
+  }, [nextSlide]);
+
+  const stopAutoSlide = useCallback(() => {
     if (slideInterval.current) clearInterval(slideInterval.current);
-  };
+  }, []);
 
   useEffect(() => {
     startAutoSlide();
     return () => stopAutoSlide();
-  }, []);
+  }, [startAutoSlide, stopAutoSlide]);
 
   const handleNext = () => {
     stopAutoSlide();
     nextSlide();
     startAutoSlide();
   };
+
   const handlePrev = () => {
     stopAutoSlide();
     prevSlide();
@@ -117,11 +123,17 @@ const HomeSection = () => {
 
             {!slide.showForm ? (
               <div className="flex gap-4">
-                <Link to={"/about"} className="bg-[#00A3FF] hover:bg-[#008EE0] text-white px-6 py-2 rounded-md">
+                <Link
+                  to="/about"
+                  className="bg-[#00A3FF] hover:bg-[#008EE0] text-white px-6 py-2 rounded-md"
+                >
                   Get Started
                 </Link>
-                <Link to={"/contact"} className="bg-white text-gray-800 hover:bg-gray-200 px-6 py-2 rounded-md">
-                 Contact
+                <Link
+                  to="/contact"
+                  className="bg-white text-gray-800 hover:bg-gray-200 px-6 py-2 rounded-md"
+                >
+                  Contact
                 </Link>
               </div>
             ) : (

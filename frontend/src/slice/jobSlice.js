@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import { getRequest, postRequest } from "../apis/ApiInstence";
 
 export const fetchJobs = createAsyncThunk("job/fetchJobs", async () => {

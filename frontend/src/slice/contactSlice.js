@@ -1,6 +1,6 @@
 // src/slice/contactSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import { postRequest } from "../apis/ApiInstence";
 
 // API call using createAsyncThunk
