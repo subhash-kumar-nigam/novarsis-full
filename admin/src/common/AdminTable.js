@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTable, useGlobalFilter, useSortBy, usePagination } from 'react-table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// GlobalFilter Component
 function GlobalFilter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) {
   const count = preGlobalFilteredRows.length;
 
@@ -18,16 +20,22 @@ function GlobalFilter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) 
   );
 }
 
-const AdminTable = ({ tableHeaders = [], tableData = [] }) => {
-  const data = React.useMemo(() => (tableData.length ? tableData : []), [tableData]);
+// PropTypes for GlobalFilter
+GlobalFilter.propTypes = {
+  preGlobalFilteredRows: PropTypes.array.isRequired,
+  globalFilter: PropTypes.string,
+  setGlobalFilter: PropTypes.func.isRequired
+};
 
+// AdminTable Component
+const AdminTable = ({ tableHeaders, tableData }) => {
+  const data = React.useMemo(() => (tableData.length ? tableData : []), [tableData]);
   const columns = React.useMemo(() => (tableHeaders.length ? tableHeaders : []), [tableHeaders]);
 
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-
     prepareRow,
     state,
     preGlobalFilteredRows,
@@ -39,21 +47,15 @@ const AdminTable = ({ tableHeaders = [], tableData = [] }) => {
     nextPage,
     previousPage,
     setPageSize
-  } = useTable(
-    { columns, data, initialState: { pageSize: 6 } },
-    useGlobalFilter, // Use global filter
-    useSortBy, // Use sorting
-    usePagination // Use pagination
-  );
+  } = useTable({ columns, data, initialState: { pageSize: 6 } }, useGlobalFilter, useSortBy, usePagination);
 
   return (
     <div className="container-fluid mt-5 pl-4 pr-4">
       {/* Search Input */}
-
       <GlobalFilter preGlobalFilteredRows={preGlobalFilteredRows} globalFilter={state.globalFilter} setGlobalFilter={setGlobalFilter} />
 
       {/* Table */}
-      <div className="table-responsive ">
+      <div className="table-responsive">
         <table {...getTableProps()} className="table table-bordered table-hover table-striped">
           <thead className="thead-dark">
             {headerGroups.map((headerGroup, index) => (
@@ -117,6 +119,12 @@ const AdminTable = ({ tableHeaders = [], tableData = [] }) => {
       </div>
     </div>
   );
+};
+
+// PropTypes for AdminTable
+AdminTable.propTypes = {
+  tableHeaders: PropTypes.array.isRequired,
+  tableData: PropTypes.array.isRequired
 };
 
 export default AdminTable;
