@@ -1,5 +1,5 @@
 // src/redux/slices/serviceSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const serviceSlice = createSlice({
-  name: "serviceSlice",
+  name: 'serviceSlice',
   initialState,
   reducers: {
     // CRUD actions

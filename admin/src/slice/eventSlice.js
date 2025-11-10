@@ -1,4 +1,4 @@
-// src/redux/slices/eventSlice.js
+// src/slice/eventSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -26,14 +26,7 @@ export const eventSlice = createSlice({
   },
 });
 
-export const {
-  addEvent,
-  getEvent,
-  getOneEvent,
-  updateEvent,
-  removeEvent,
-  successEvent,
-  failedEvent,
-} = eventSlice.actions;
+export const { addEvent, getEvent, getOneEvent, updateEvent, removeEvent, successEvent, failedEvent } =
+  eventSlice.actions;
 
 export default eventSlice.reducer;

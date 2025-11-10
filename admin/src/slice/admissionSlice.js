@@ -1,4 +1,3 @@
-// src/redux/slices/admissionSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -19,23 +18,19 @@ export const admissionSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-
     addAdmission: (state) => {
       state.loading = true;
       state.error = null;
     },
-
     removeAdmission: (state) => {
       state.loading = true;
       state.error = null;
     },
-
     successAdmission: (state, action) => {
       state.loading = false;
       state.data = action.payload;
       state.error = null;
     },
-
     failedAdmission: (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -43,6 +38,7 @@ export const admissionSlice = createSlice({
   },
 });
 
+// Export actions
 export const {
   getAdmissions,
   addAdmission,
@@ -51,4 +47,5 @@ export const {
   failedAdmission,
 } = admissionSlice.actions;
 
+// Export reducer
 export default admissionSlice.reducer;

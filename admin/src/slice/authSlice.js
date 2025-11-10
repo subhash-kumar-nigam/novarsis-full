@@ -5,7 +5,7 @@ const initialState = {
   response: null,
   loading: false,
   error: null,
-  token:null,
+  token: null,
 };
 
 export const authSlice = createSlice({
@@ -17,21 +17,21 @@ export const authSlice = createSlice({
       state.loading = true;
     },
     getUserFailure: (state, action) => {
-      console.log('failed', action.payload)
+      console.log('failed', action.payload);
       state.loading = false;
       state.error = action.payload;
     },
-    getSuccess(state, action) {
-      console.log('sucess', action.payload)
+    getSuccess: (state, action) => {
+      console.log('success', action.payload);
       state.loading = false;
       state.response = action.payload;
       state.token = action.payload?.response?.data?.access_token;
       state.error = null;
     },
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { login, getUserFailure, getSuccess } = authSlice.actions
+export const { login, getUserFailure, getSuccess } = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

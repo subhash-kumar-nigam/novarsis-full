@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const ourteamSlice = createSlice({
-  name: "ourteam",
+  name: 'ourteam',
   initialState,
   reducers: {
     addOurteam: (state) => {
@@ -26,7 +26,6 @@ export const ourteamSlice = createSlice({
     removeOurteam: (state) => {
       state.loading = true;
     },
-
     successOurteam: (state, action) => {
       state.data = action.payload;
       state.loading = false;

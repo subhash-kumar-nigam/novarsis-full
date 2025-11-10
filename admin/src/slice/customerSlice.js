@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
@@ -7,37 +7,36 @@ const initialState = {
   error: null,
   callTimes: 0,
   message: '',
-  data: []
-}
+  data: [],
+};
 
 export const customerSlice = createSlice({
   name: 'customerSliceName',
   initialState,
   reducers: {
-    addCustomer: () => {
-
-    },
-    getCustomer: () => {
-
-    },
-    getOneCustomer: () => {
-
-    },
+    addCustomer: () => {},
+    getCustomer: () => {},
+    getOneCustomer: () => {},
 
     successCustomer: (state, action) => {
-      console.log(state)
-      state.data = action.payload
+      console.log(state);
+      state.data = action.payload;
     },
-    searchByMobile: () => {
-    },
-    removeCustomer: () => {
-    },
-    updateCustomer: () => {
-    },
+    searchByMobile: () => {},
+    removeCustomer: () => {},
+    updateCustomer: () => {},
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { addCustomer, removeCustomer, updateCustomer, getCustomer, successCustomer, getOneCustomer, searchByMobile } = customerSlice.actions
+export const {
+  addCustomer,
+  removeCustomer,
+  updateCustomer,
+  getCustomer,
+  successCustomer,
+  getOneCustomer,
+  searchByMobile,
+} = customerSlice.actions;
 
-export default customerSlice.reducer
+export default customerSlice.reducer;

@@ -1,5 +1,5 @@
 // src/redux/slices/careerSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const careerSlice = createSlice({
-  name: "careerSlice",
+  name: 'careerSlice',
   initialState,
   reducers: {
     // Actions for CRUD

@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
   loading: false,
   error: null,
-  message: "",
+  message: '',
 };
 
 const faqSlice = createSlice({
-  name: "faq", // ✅ Use simple name (important for store key)
+  name: 'faq', // ✅ Store key name
   initialState,
   reducers: {
     // 🔹 Start actions
@@ -41,7 +41,7 @@ const faqSlice = createSlice({
     },
     failedFaq: (state, action) => {
       state.loading = false;
-      state.error = action.payload || "Something went wrong";
+      state.error = action.payload || 'Something went wrong';
     },
   },
 });

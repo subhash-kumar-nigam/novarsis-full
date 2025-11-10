@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
@@ -7,38 +7,42 @@ const initialState = {
   error: null,
   callTimes: 0,
   message: '',
-  data: []
-}
+  data: [],
+};
 
 export const mediaSlice = createSlice({
   name: 'mediaSliceName',
   initialState,
   reducers: {
-    addMedia: () => {
+    addMedia: () => {},
 
-    },
-    getMedia: () => {
+    getMedia: () => {},
 
-    },
-    getOneMedia: () => {
-
-    },
+    getOneMedia: () => {},
 
     successMedia: (state, action) => {
-      console.log(state)
-      state.data = action.payload
-  },
-    removeMedia: () => {
+      console.log(state);
+      state.data = action.payload;
     },
-    updateMedia: () => {
-    },
+
+    removeMedia: () => {},
+
+    updateMedia: () => {},
+
     emptyCart: (state, action) => {
-      state.value += action.payload
+      state.value += action.payload;
     },
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { addMedia, removeMedia, updateMedia, getMedia, successMedia, getOneMedia } = mediaSlice.actions
+export const {
+  addMedia,
+  removeMedia,
+  updateMedia,
+  getMedia,
+  successMedia,
+  getOneMedia,
+} = mediaSlice.actions;
 
-export default mediaSlice.reducer
+export default mediaSlice.reducer;

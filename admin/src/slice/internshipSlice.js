@@ -27,7 +27,6 @@ export const internshipSlice = createSlice({
       state.error = null;
     },
     updateResume: (state, action) => {
-      // Assuming you're updating specific resume here
       const updated = action.payload;
       const index = state.data.findIndex((item) => item.id === updated.id);
       if (index !== -1) {

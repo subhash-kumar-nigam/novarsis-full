@@ -1,4 +1,3 @@
-// src/redux/slices/managementSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -22,6 +21,7 @@ export const managementSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
+
     failedManagement: (state, action) => {
       state.error = action.payload;
       state.loading = false;

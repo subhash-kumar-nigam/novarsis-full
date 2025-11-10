@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
@@ -7,35 +7,34 @@ const initialState = {
   error: null,
   callTimes: 0,
   message: '',
-  data: []
-}
+  data: [],
+};
 
 export const bannerSlice = createSlice({
   name: 'bannerSliceName',
   initialState,
   reducers: {
-    addBanner: () => {
-
-    },
-    getBanner: () => {
-
-    },
-    getOneBanner: () => {
-
-    },
+    addBanner: () => {},
+    getBanner: () => {},
+    getOneBanner: () => {},
 
     successBanner: (state, action) => {
-      console.log(state)
-      state.data = action.payload
-  },
-    removeBanner: () => {
+      console.log(state);
+      state.data = action.payload;
     },
-    updateBanner: () => {
-    },
+    removeBanner: () => {},
+    updateBanner: () => {},
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { addBanner, removeBanner, updateBanner, getBanner, successBanner, getOneBanner } = bannerSlice.actions
+export const {
+  addBanner,
+  removeBanner,
+  updateBanner,
+  getBanner,
+  successBanner,
+  getOneBanner,
+} = bannerSlice.actions;
 
-export default bannerSlice.reducer
+export default bannerSlice.reducer;

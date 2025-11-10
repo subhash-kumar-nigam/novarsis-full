@@ -1,5 +1,3 @@
-// store.js
-
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -20,18 +18,13 @@ import bannerSlice from '../slice/bannerSlice';
 import ourteamSlice from '../slice/ourteamSlice';
 import customerSlice from '../slice/customerSlice';
 import orderSliceDB from '../slice/orderSliceDB';
-
 import eventReducer from '../slice/eventSlice';
 import admissionReducer from '../slice/admissionSlice';
-
-
-import careerReducer from "../slice/careerSlice";
+import careerReducer from '../slice/careerSlice';
 import managementReducer from '../slice/managementSlice';
-
 import blogReducer from '../slice/blogSlice';
-import applyFormSlice from "../slice/applyFormSlice";
-import serviceReducer from "../slice/serviceSlice";
-
+import applyFormSlice from '../slice/applyFormSlice';
+import serviceReducer from '../slice/serviceSlice';
 import faqReducer from '../slice/faqSlice';
 
 // Root saga
@@ -56,23 +49,18 @@ const rootReducer = combineReducers({
   order: orderSlice,
   orderDB: orderSliceDB,
   contactus: contactUsSlice,
-   applyform: applyFormSlice,
+  applyform: applyFormSlice,
   internship: internshipSlice,
   banner: bannerSlice,
   team: ourteamSlice,
- career: careerReducer,
+  career: careerReducer,
   customer: customerSlice,
-   service: serviceReducer,
-
+  service: serviceReducer,
   event: eventReducer,
   admission: admissionReducer,
- 
   faq: faqReducer,
-
   management: managementReducer,
-
   blog: blogReducer,
-
 });
 
 // Persisted reducer
@@ -88,7 +76,6 @@ const store = configureStore({
     getDefaultMiddleware({
       thunk: false,
       serializableCheck: {
-
         ignoredActions: [
           'persist/PERSIST',
           'teacher/addTeacher',
@@ -96,10 +83,7 @@ const store = configureStore({
           'event/addEvent',
           'event/updateEvent',
         ],
-        ignoredPaths: [
-          'teacher.formData',
-          'event.formData',
-        ],
+        ignoredPaths: ['teacher.formData', 'event.formData'],
       },
     }).concat(sagaMiddleware),
   devTools: process.env.NODE_ENV !== 'production',

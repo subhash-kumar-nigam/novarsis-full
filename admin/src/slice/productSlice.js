@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
@@ -7,41 +7,37 @@ const initialState = {
   error: null,
   callTimes: 0,
   message: '',
-  data: []
-}
+  data: [],
+};
 
 export const productSlice = createSlice({
   name: 'productSliceName',
   initialState,
   reducers: {
-    addProduct: () => {
-
-    },
-    getProduct: () => {
-
-    },
-    getOneProduct: () => {
-
-    },
-
+    addProduct: () => {},
+    getProduct: () => {},
+    getOneProduct: () => {},
     successProduct: (state, action) => {
-     
-      state.data = action.payload
-  },
-    removeProduct: () => {
+      state.data = action.payload;
     },
-    updateProduct: () => {
-    },
+    removeProduct: () => {},
+    updateProduct: () => {},
     emptyCart: (state, action) => {
-      state.value += action.payload
+      state.value += action.payload;
     },
-    searchProductByName:()=>{
-
-    }
+    searchProductByName: () => {},
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { addProduct, removeProduct, updateProduct, getProduct, successProduct, getOneProduct, searchProductByName } = productSlice.actions
+export const {
+  addProduct,
+  removeProduct,
+  updateProduct,
+  getProduct,
+  successProduct,
+  getOneProduct,
+  searchProductByName,
+} = productSlice.actions;
 
-export default productSlice.reducer
+export default productSlice.reducer;

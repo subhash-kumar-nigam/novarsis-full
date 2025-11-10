@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
@@ -6,12 +6,12 @@ const initialState = {
   loading: false,
   error: null,
   callTimes: 0,
-  message: "",
+  message: '',
   data: [],
 };
 
 export const applyFormSlice = createSlice({
-  name: "applyForm",
+  name: 'applyForm',
   initialState,
   reducers: {
     getApplyForm: () => {},
@@ -29,7 +29,7 @@ export const applyFormSlice = createSlice({
   },
 });
 
-// ✅ Export actions
+// Export actions
 export const {
   getApplyForm,
   removeApplyForm,
@@ -38,5 +38,5 @@ export const {
   failedApplyForm,
 } = applyFormSlice.actions;
 
-// ✅ Export reducer
+// Export reducer
 export default applyFormSlice.reducer;

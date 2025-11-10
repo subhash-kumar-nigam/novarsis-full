@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRouter = () => {
-  const isLoggedIn = useSelector((state) => state.user.response) && localStorage.getItem('user');
+  const isLoggedIn =
+    useSelector((state) => state.user.response) && localStorage.getItem('user');
+
   return (
     <div>
       {isLoggedIn ? (
@@ -11,10 +13,10 @@ const PrivateRouter = () => {
           <Outlet />
         </Layout>
       ) : (
-        
-        <Navigate to={'/signin'} replace/>
+        <Navigate to={'/signin'} replace />
       )}
     </div>
   );
 };
+
 export default PrivateRouter;
