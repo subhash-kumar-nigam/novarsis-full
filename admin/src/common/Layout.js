@@ -270,7 +270,7 @@ const Layout = ({ children }) => {
 
 // PropTypes validation
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Layout;

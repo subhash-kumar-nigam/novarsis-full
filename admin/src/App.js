@@ -49,10 +49,7 @@ import ListCustomer from 'pages/customer/ListCustomer';
 import AddCustomer from 'pages/customer/AddCustomer';
 import UpdateCustomer from 'pages/customer/UpdateCustomer';
 
-// Billing
-import CreateBill from 'components/billing/CreateBill';
-import BillList from 'components/billing/BillList';
-import BillDetails from 'components/billing/BillDetails';
+
 
 // Orders
 import CorderList from 'pages/orderList/CorderList';
@@ -129,10 +126,7 @@ function App() {
           <Route path="/customer/add" element={<AddCustomer />} />
           <Route path="/customer/update/:id" element={<UpdateCustomer />} />
 
-          {/* Billing */}
-          <Route path="/billing" element={<CreateBill />} />
-          <Route path="/billing-list" element={<BillList />} />
-          <Route path="/billing/details/:id" element={<BillDetails />} />
+        
 
           {/* Blogs */}
           <Route path="/blogs/add" element={<AddBlog />} />

@@ -15,11 +15,7 @@ const TruncatedMessage = ({ text = '', maxLength = 3 }) => {
   return (
     <span>
       {isTruncated ? `${text.slice(0, maxLength)}...` : text}
-      <button
-        onClick={toggleTruncation}
-        className="btn btn-link p-0"
-        style={{ textDecoration: 'underline', color: 'blue' }}
-      >
+      <button onClick={toggleTruncation} className="btn btn-link p-0" style={{ textDecoration: 'underline', color: 'blue' }}>
         {isTruncated ? 'Show more' : 'Show less'}
       </button>
     </span>
@@ -29,13 +25,13 @@ const TruncatedMessage = ({ text = '', maxLength = 3 }) => {
 // ✅ PropTypes validation
 TruncatedMessage.propTypes = {
   text: PropTypes.string,
-  maxLength: PropTypes.number,
+  maxLength: PropTypes.number
 };
 
 // ✅ Default props
 TruncatedMessage.defaultProps = {
   text: '',
-  maxLength: 3,
+  maxLength: 3
 };
 
 export default TruncatedMessage;
