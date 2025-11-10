@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getService, removeService, updateService } from "slice/serviceSlice";
-import AdminTable from "common/AdminTable";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getService, removeService, updateService } from 'slice/serviceSlice';
+import AdminTable from 'common/AdminTable';
+import { toast } from 'react-toastify';
 
 const ListService = () => {
   const dispatch = useDispatch();
@@ -16,92 +16,83 @@ const ListService = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    image: "",
+    title: '',
+    description: '',
+    image: '',
   });
 
-  // ✅ Fetch service list
   useEffect(() => {
     dispatch(getService());
   }, [dispatch]);
 
-  // ✅ Edit Modal open
   const handleEditClick = (service) => {
     setSelectedService(service);
     setFormData({
-      title: service.title || "",
-      description: service.description || "",
-      image: service.image || "",
+      title: service.title || '',
+      description: service.description || '',
+      image: service.image || '',
     });
     setShowModal(true);
   };
 
-  // ✅ Close modal
   const closeModal = () => {
     setShowModal(false);
     setSelectedService(null);
-    setFormData({ title: "", description: "", image: "" });
+    setFormData({ title: '', description: '', image: '' });
   };
 
-  // ✅ Input change handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Save edited service
   const handleSaveChanges = async () => {
     if (!selectedService) return;
     try {
       await dispatch(updateService({ id: selectedService.id, data: formData }));
-      toast.success("Service updated successfully!");
+      toast.success('Service updated successfully!');
       dispatch(getService());
     } catch (err) {
-      console.error("Error updating service:", err);
-      toast.error("Failed to update service");
+      console.error('Error updating service:', err);
+      toast.error('Failed to update service');
     }
     closeModal();
   };
 
-  // ✅ Remove service
   const handleRemove = async (id) => {
     try {
       await dispatch(removeService(id));
-      toast.success("Service removed successfully!");
+      toast.success('Service removed successfully!');
       dispatch(getService());
     } catch (err) {
-      console.error("Error removing service:", err);
-      toast.error("Failed to remove service");
+      console.error('Error removing service:', err);
+      toast.error('Failed to remove service');
     }
   };
 
-  // ✅ Table Headers
   const tableHeaders = [
-    { Header: "ID", accessor: "id" },
-    { Header: "Title", accessor: "title" },
-    { Header: "Description", accessor: "description" },
+    { Header: 'ID', accessor: 'id' },
+    { Header: 'Title', accessor: 'title' },
+    { Header: 'Description', accessor: 'description' },
     {
-  Header: "Image",
-  accessor: "image",
-  Cell: ({ row }) => (
-    row.original.image ? (
-      <img
-        src={`${process.env.REACT_APP_BACKEND}uploads/services/${row.original.image}`}
-        alt={row.original.title}
-        width={100}
-        style={{ borderRadius: "8px" }}
-        onError={(e) => (e.target.src = "/fallback.png")}
-      />
-    ) : (
-      <span>No Image</span>
-    )
-  ),
-}
-,
+      Header: 'Image',
+      accessor: 'image',
+      Cell: ({ row }) =>
+        row.original.image ? (
+          <img
+            src={`${process.env.REACT_APP_BACKEND}uploads/services/${row.original.image}`}
+            alt={row.original.title}
+            width={100}
+            style={{ borderRadius: '8px' }}
+            onError={(e) => (e.target.src = '/fallback.png')}
+          />
+        ) : (
+          <span>No Image</span>
+        ),
+    },
     {
-      Header: "Actions",
-      accessor: "actions",
+      Header: 'Actions',
+      accessor: 'actions',
       Cell: ({ row }) => (
         <>
           <button
@@ -136,19 +127,13 @@ const ListService = () => {
         !loading && <p className="text-gray-400 mx-4">No services available.</p>
       )}
 
-      {/* ✅ Edit Modal */}
       {showModal && selectedService && (
         <div className="modal fade show d-block" tabIndex="-1" role="dialog">
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Edit Service</h5>
-                <button
-                  type="button"
-                  className="close"
-                  onClick={closeModal}
-                  aria-label="Close"
-                >
+                <button type="button" className="close" onClick={closeModal} aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -180,18 +165,10 @@ const ListService = () => {
               </div>
 
               <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={closeModal}
-                >
+                <button type="button" className="btn btn-secondary" onClick={closeModal}>
                   Close
                 </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleSaveChanges}
-                >
+                <button type="button" className="btn btn-primary" onClick={handleSaveChanges}>
                   Save Changes
                 </button>
               </div>

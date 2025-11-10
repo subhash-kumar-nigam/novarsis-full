@@ -38,7 +38,7 @@ export const {
   updateService,
   removeService,
   successService,
-  failedService,
+  failedService
 } = serviceSlice.actions;
 
 export default serviceSlice.reducer;

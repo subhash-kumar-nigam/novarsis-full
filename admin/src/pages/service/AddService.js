@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addService } from "../../slice/serviceSlice"; // Redux thunk
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addService } from '../../slice/serviceSlice';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const AddService = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     image: null,
   });
 
@@ -15,32 +15,29 @@ const AddService = () => {
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.service);
 
-  // ✅ Handle text inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Handle image upload
   const handleFileChange = (e) => {
     setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
   };
 
-  // ✅ Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const data = new FormData();
-      data.append("title", formData.title);
-      data.append("description", formData.description);
-      if (formData.image) data.append("image", formData.image);
+      data.append('title', formData.title);
+      data.append('description', formData.description);
+      if (formData.image) data.append('image', formData.image);
 
-      await dispatch(addService(data)); // dispatch Redux thunk
-      toast.success("Service added successfully!");
-      navigate("/services/list");
+      await dispatch(addService(data));
+      toast.success('Service added successfully!');
+      navigate('/services/list');
     } catch (error) {
-      console.error("Error adding service:", error);
-      toast.error("Failed to add service");
+      console.error('Error adding service:', error);
+      toast.error('Failed to add service');
     }
   };
 
@@ -53,7 +50,9 @@ const AddService = () => {
       <form onSubmit={handleSubmit} className="mx-4">
         {/* Title */}
         <div className="form-group mt-3">
-          <label htmlFor="title" className="adminlables">Title</label>
+          <label htmlFor="title" className="adminlables">
+            Title
+          </label>
           <input
             type="text"
             id="title"
@@ -68,7 +67,9 @@ const AddService = () => {
 
         {/* Description */}
         <div className="form-group mt-3">
-          <label htmlFor="description" className="adminlables">Description</label>
+          <label htmlFor="description" className="adminlables">
+            Description
+          </label>
           <textarea
             id="description"
             name="description"
@@ -78,12 +79,14 @@ const AddService = () => {
             rows="4"
             placeholder="Write about the service..."
             required
-          ></textarea>
+          />
         </div>
 
         {/* Image Upload */}
         <div className="form-group mt-3">
-          <label htmlFor="image" className="adminlables">Upload Image</label>
+          <label htmlFor="image" className="adminlables">
+            Upload Image
+          </label>
           <input
             type="file"
             id="image"
@@ -97,7 +100,7 @@ const AddService = () => {
         {/* Submit */}
         <div className="text-right mt-4">
           <button type="submit" className="btn btn-lg addbtn" disabled={loading}>
-            {loading ? "Adding..." : "Add Service"}
+            {loading ? 'Adding...' : 'Add Service'}
           </button>
         </div>
       </form>

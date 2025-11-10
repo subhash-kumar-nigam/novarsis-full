@@ -15,34 +15,27 @@ export const mediaSlice = createSlice({
   initialState,
   reducers: {
     addMedia: () => {},
-
     getMedia: () => {},
-
     getOneMedia: () => {},
-
     successMedia: (state, action) => {
-      console.log(state);
       state.data = action.payload;
     },
-
     removeMedia: () => {},
-
     updateMedia: () => {},
-
     emptyCart: (state, action) => {
       state.value += action.payload;
-    },
-  },
+    }
+  }
 });
 
-// Action creators are generated for each case reducer function
+// Action creators
 export const {
   addMedia,
   removeMedia,
   updateMedia,
   getMedia,
   successMedia,
-  getOneMedia,
+  getOneMedia
 } = mediaSlice.actions;
 
 export default mediaSlice.reducer;

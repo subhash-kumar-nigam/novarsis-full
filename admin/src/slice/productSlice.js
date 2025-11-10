@@ -29,7 +29,7 @@ export const productSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+// Action creators
 export const {
   addProduct,
   removeProduct,
@@ -37,7 +37,7 @@ export const {
   getProduct,
   successProduct,
   getOneProduct,
-  searchProductByName,
+  searchProductByName
 } = productSlice.actions;
 
 export default productSlice.reducer;

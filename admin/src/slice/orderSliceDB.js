@@ -46,7 +46,7 @@ export const {
   removeOrderListDB,
   updateOrderListDB,
   successOrderListDB,
-  failedOrderListDB,
+  failedOrderListDB
 } = orderSliceDB.actions;
 
 export default orderSliceDB.reducer;

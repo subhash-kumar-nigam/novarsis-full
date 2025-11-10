@@ -14,15 +14,15 @@ export const orderSlice = createSlice({
     },
     emptyCart: (state, action) => {
       state.value += action.payload;
-    },
-  },
+    }
+  }
 });
 
 // Action creators are generated for each case reducer function
 export const {
   addOrder,
   removeOrder,
-  emptyCart,
+  emptyCart
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

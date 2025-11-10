@@ -51,7 +51,7 @@ export const {
   removeOurteam,
   successOurteam,
   successOneOurteam,
-  failedOurteam,
+  failedOurteam
 } = ourteamSlice.actions;
 
 export default ourteamSlice.reducer;

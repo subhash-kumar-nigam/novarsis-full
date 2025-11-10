@@ -15,18 +15,16 @@ export const managementSlice = createSlice({
     getOneManagement: () => {},
     updateManagement: () => {},
     removeManagement: () => {},
-
     successManagement: (state, action) => {
       state.data = action.payload;
       state.loading = false;
       state.error = null;
     },
-
     failedManagement: (state, action) => {
       state.error = action.payload;
       state.loading = false;
-    },
-  },
+    }
+  }
 });
 
 export const {
@@ -36,7 +34,7 @@ export const {
   updateManagement,
   removeManagement,
   successManagement,
-  failedManagement,
+  failedManagement
 } = managementSlice.actions;
 
 export default managementSlice.reducer;

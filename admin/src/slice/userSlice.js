@@ -10,13 +10,11 @@ const initialState = {
   token: null,
 };
 
-const userData = localStorage.getItem('user')
-  ? localStorage.getItem('user')
-  : null;
+const userData = localStorage.getItem('user') ? localStorage.getItem('user') : null;
 
 if (userData) {
   initialState.response = JSON.parse(userData);
-  initialState.token = userData?.data?.access_token;
+  initialState.token = JSON.parse(userData)?.data?.access_token;
 } else {
   initialState.response = null;
 }

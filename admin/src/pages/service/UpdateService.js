@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import toast from "react-hot-toast";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const UpdateService = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    icon: "",
+    title: '',
+    description: '',
+    icon: '',
   });
 
-  // ✅ Base URL from .env
   const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
-  // ✅ Fetch existing service data
   useEffect(() => {
     const fetchService = async () => {
       try {
@@ -24,36 +22,33 @@ const UpdateService = () => {
         const data = res.data.data;
 
         setFormData({
-          title: data.title || "",
-          description: data.description || "",
-          icon: data.icon || "",
+          title: data.title || '',
+          description: data.description || '',
+          icon: data.icon || '',
         });
       } catch (err) {
-        console.error("Error fetching service:", err);
-        toast.error("Failed to load service details.");
+        console.error('Error fetching service:', err);
+        toast.error('Failed to load service details.');
       }
     };
 
     fetchService();
   }, [id, BASE_URL]);
 
-  // ✅ Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await axios.patch(`${BASE_URL}/service/${id}`, formData);
-      toast.success("Service updated successfully!");
-      navigate("/services/list");
+      toast.success('Service updated successfully!');
+      navigate('/services/list');
     } catch (error) {
-      console.error("Update error:", error);
-      toast.error(error?.response?.data?.message || "Failed to update service!");
+      console.error('Update error:', error);
+      toast.error(error?.response?.data?.message || 'Failed to update service!');
     }
   };
 
@@ -64,7 +59,6 @@ const UpdateService = () => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Service Title */}
         <div>
           <label htmlFor="title" className="block font-medium mb-1">
             Service Title
@@ -80,7 +74,6 @@ const UpdateService = () => {
           />
         </div>
 
-        {/* Icon */}
         <div>
           <label htmlFor="icon" className="block font-medium mb-1">
             Icon (URL or Class)
@@ -95,7 +88,6 @@ const UpdateService = () => {
           />
         </div>
 
-        {/* Description */}
         <div>
           <label htmlFor="description" className="block font-medium mb-1">
             Description
@@ -111,7 +103,6 @@ const UpdateService = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"

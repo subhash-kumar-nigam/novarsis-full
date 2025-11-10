@@ -41,8 +41,8 @@ export const internshipSlice = createSlice({
     failedResume: (state, action) => {
       state.loading = false;
       state.error = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const {
@@ -51,7 +51,7 @@ export const {
   updateResume,
   successResume,
   failedResume,
-  getDashboardDataa,
+  getDashboardDataa
 } = internshipSlice.actions;
 
 export default internshipSlice.reducer;
