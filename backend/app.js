@@ -37,7 +37,7 @@ const logger = log4js.getLogger("app");
 // ==============================
 // Middleware Configuration
 // ==============================
-const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
+const allowedOrigins = ["http://localhost:3000", "http://localhost:3001" , "https://novarsis-full-c1fe.vercel.app"];
 
 const corsOptions = {
   origin: function (origin, callback) {
