@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneBanner, updateBanner } from 'slice/bannerSlice'; // Import your action creator to fetch a single product
 import { toast } from 'react-toastify';

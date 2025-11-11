@@ -49,7 +49,7 @@ const rootReducer = combineReducers({
   orderDB: orderSliceDB,
   contactus: contactUsSlice,
   applyform: applyFormSlice,
-   banner: bannerSlice,
+  banner: bannerSlice,
   team: ourteamSlice,
   career: careerReducer,
   customer: customerSlice,

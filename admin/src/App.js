@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -87,8 +86,6 @@ function App() {
           <Route path="/apply" element={<Applyform />} />
           <Route path="/career" element={<Career />} />
           <Route path="/admission" element={<Admission />} />
-         
-
           {/* Products */}
           <Route path="/products" element={<ProductList />} />
           <Route path="/products/add" element={<AddProduct />} />

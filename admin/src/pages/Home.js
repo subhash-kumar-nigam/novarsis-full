@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Home() {
   const containerStyle = {
     width: '100%',

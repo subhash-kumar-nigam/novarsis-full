@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import signinimage from '../asserts/img/software.png';
 import { toast } from 'react-toastify';
 import Button from '../components/Button';

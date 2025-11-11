@@ -26,20 +26,14 @@ export const gallerySlice = createSlice({
     removeGallery: () => {},
     updateGallery: () => {},
     emptyCart: (state, action) => {
-      state.value += action.payload;
+      if (typeof state.value === 'number') {
+        state.value += action.payload;
+      }
     }
   }
 });
 
-// Export all actions
-export const { 
-  addGallery, 
-  removeGallery, 
-  updateGallery, 
-  getGallery, 
-  successGallery, 
-  getOneGallery, 
-  failedGallery   // ✅ export failedGallery
-} = gallerySlice.actions;
+// ✅ Export all actions
+export const { addGallery, removeGallery, updateGallery, getGallery, successGallery, getOneGallery, failedGallery } = gallerySlice.actions;
 
 export default gallerySlice.reducer;

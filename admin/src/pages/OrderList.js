@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeProduct } from '../slice/productSlice';
 import { getOrderListDB } from 'slice/orderSliceDB';

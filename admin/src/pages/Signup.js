@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import signupimage from '../asserts/img/signup-image.jpg';
 import Inputbox from '../components/Inputbox';

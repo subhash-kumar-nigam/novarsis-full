@@ -1,4 +1,3 @@
-import React from 'react';
 import logo from '../asserts/img/logo.png';
 function Header() {
   // const [displayAvailability, setDisplayAvailability] = useState(false);

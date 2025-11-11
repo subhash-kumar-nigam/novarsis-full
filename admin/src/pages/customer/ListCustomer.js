@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCustomer, removeCustomer } from 'slice/customerSlice';
 import { Link } from 'react-router-dom';

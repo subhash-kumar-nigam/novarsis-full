@@ -13,7 +13,7 @@ import {
   getOneProduct,
   searchProductByName
 } from '../slice/productSlice';
-import { getGallery, successGallery, removeGallery, failedGallery , addGallery, updateGallery, getOneGallery } from '../slice/gallerySlice';
+import { getGallery, successGallery, removeGallery, failedGallery, addGallery, updateGallery, getOneGallery } from '../slice/gallerySlice';
 import { getMedia, successMedia, removeMedia, addMedia, updateMedia, getOneMedia } from '../slice/mediaSlice';
 import { getBanner, successBanner, removeBanner, addBanner, updateBanner, getOneBanner } from '../slice/bannerSlice';
 import { getOurteam, successOurteam, removeOurteam, addOurteam, updateOurteam, getOneOurteam, failedOurteam } from 'slice/ourteamSlice';
@@ -1338,9 +1338,6 @@ export function* watchGetUser() {
   //admission
   yield takeLatest(getAdmissions, getAdmissionsFun);
   yield takeLatest(removeAdmission, removeAdmissionFun);
-
-
-
   //Enquire
   yield takeLatest(getEnquire, getEnquireFun);
   yield takeLatest(removeEnquire, removeEnquireFun);

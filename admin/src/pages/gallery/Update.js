@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneGallery, updateGallery } from 'slice/gallerySlice';
 import { toast } from 'react-toastify';
